@@ -26,8 +26,8 @@ if sys.version_info < (3, 0):
 
 
 class LammpsSimulation(object):
-    def __init__(self, options):
-        self.name = clean(options.cif_file)
+    def __init__(self, name, options):
+        self.name = name
         self.special_commands = []
         self.options = options
         self.molecules = []
