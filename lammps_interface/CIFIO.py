@@ -3,6 +3,7 @@ CIF format file I/O operations.
 """
 import shlex
 from datetime import date
+from .aseAtoms2Cif import aseAtoms2Cif
 
 
 class CIF(object):
@@ -17,9 +18,9 @@ class CIF(object):
         if file is not None:
             self.read(file)
 
-    def read(self, filename):
-        filestream = open(filename, 'r')
-        filelines = filestream.readlines()
+    def read(self, ase_atoms):
+        #  filestream = open(filename, 'r')
+        filelines = [line.replace("\n", "") for line in aseAtoms2Cif(ase_atoms)]
         blocks = []
         loopcount = 0
         loopentries = {}
@@ -80,7 +81,7 @@ class CIF(object):
                 for key, val in zip(loopentries[loopcount], split_line):
                     self.add_data(loopcount, **{key:self.general_label(val)})
 
-        filestream.close()
+        #  filestream.close()
 
     def get_time(self):
         t = date.today()
