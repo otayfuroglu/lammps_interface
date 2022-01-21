@@ -1589,7 +1589,7 @@ def ase_from_CIF(cifname):
     for atom in ase_cif:
         print(atom)
 
-def from_CIF(cifname):
+def from_CIF(ase_atoms):
     """Reads the structure data from the CIF
     - currently does not read the symmetry of the cell
     - does not unpack the assymetric unit (assumes P1)
@@ -1598,13 +1598,13 @@ def from_CIF(cifname):
     """
 
     cifobj = CIF()
-    cifobj.read(cifname)
+    cifobj.read(ase_atoms)
 
     data = cifobj._data
     # obtain atoms and cell
     cell = Cell()
     # add data to molecular graph (to be parsed later..)
-    mg = MolecularGraph(name=clean(cifname))
+    mg = MolecularGraph()
     cellparams = [float(del_parenth(i)) for i in [data['_cell_length_a'],
                                      data['_cell_length_b'],
                                      data['_cell_length_c'],
